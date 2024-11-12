@@ -1,7 +1,7 @@
 // connection.ts is how we connect to the database
 
 import dotenv from 'dotenv';
-dotenv.comfig();
+dotenv.config();
 
 // import and require Pool (node-postgres)
 // We'll be creating a connection Pool. Read up on the benefits here: https://node-postgres.com/features/pooling
@@ -19,9 +19,9 @@ const pool = new Pool({
 
 const connectToDb = async () => {
     try {
-        await.pool.connect();
+        await pool.connect();
         console.log('Connected!')
-    } catch {
+    } catch (err) {
         console.error('Error connecting to database:', err);
         process.exit(1);
     }
