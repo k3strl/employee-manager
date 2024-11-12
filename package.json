@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "asciiart-logo": "^0.2.7",
+    "dotenv": "^16.4.5",
+    "inquirer": "^12.1.0",
+    "pg": "^8.13.1"
+  }
+}
