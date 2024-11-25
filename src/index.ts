@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import express from "express";
-import { connectToDb } from "./db/connection";
+import { connectToDb } from "./db/connection.js";
 import {
   viewAllDepartments,
   viewAllRoles,

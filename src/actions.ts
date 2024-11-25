@@ -47,7 +47,7 @@ export const viewAllRoles = (startCli: () => void): void => {
   );
 };
 
-export const viewEmployees = (startCli: () => void): void => {
+export const getAllEmployees = (startCli: () => void): void => {
   pool.query(
     `SELECT
            employee.id, 
@@ -212,7 +212,7 @@ const getRoles = async (): Promise<string[]> => {
   }
 };
 
-const getEmployees = async (): Promise<string[]> => {
+const getAllEmployees = async (): Promise<string[]> => {
   try {
     const result: QueryResult = await pool.query(
       `SELECT first_name, last_name FROM employee`
@@ -228,7 +228,7 @@ const getEmployees = async (): Promise<string[]> => {
 };
 
 export const addEmployee = (startCli: () => void): void => {
-  Promise.all([getRoles(), getEmployees()]).then(([roles, managers]) => {
+  Promise.all([getAllRoles(), getAllEmployees()]).then(([roles, managers]) => {
     inquirer
       .prompt([
         {

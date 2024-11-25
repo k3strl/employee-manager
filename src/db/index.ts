@@ -7,6 +7,7 @@ export default class DB {
 
     async query(sql: string, args: any[] = []): Promise<QueryResult> {
         const client = await pool.connect();
+        
 // finally will happen no matter what; we still release the connection with client.release()
         try {
             return client.query(sql, args);
@@ -45,7 +46,8 @@ export default class DB {
             [title, salary, department_id]
         );
     }
-    // update/change employee role (promotion!)
+
+    // update/change employee role (promotion/demotion!)
     updateEmployeeRole(employee_id: number, role_id: number) {
         return this.query(
             "UPDATE employee SET role_id = $1 WHERE id = $2",
