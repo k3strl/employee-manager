@@ -4,7 +4,7 @@ import { connectToDb } from "./db/connection.js";
 import {
   viewAllDepartments,
   viewAllRoles,
-  viewEmployees,
+  getAllEmployees,
   addDepartment,
   addRole,
   addEmployee,
@@ -15,11 +15,14 @@ import Db from "./db/index.js";
 await connectToDb();
 
 const db = new Db();
+console.log(db);
 
-db.getAllEmployees()
-    .then(({ rows }) => {
-        console.table(rows);
-    });
+// db.getAllEmployees()
+//     .then(({ rows }) => {
+//       console.log('\n \n');  
+//       console.table(rows);
+//       console.log('\n \n');
+//     });
 
 const app = express();
 
@@ -50,7 +53,7 @@ const startCli = (): void => {
       } else if (answers.action === "View all roles") {
         viewAllRoles(startCli);
       } else if (answers.action === "View all employees") {
-        viewEmployees(startCli);
+        getAllEmployees(startCli);
       } else if (answers.action === "Add a department") {
         addDepartment(startCli);
       } else if (answers.action === "Add a role") {

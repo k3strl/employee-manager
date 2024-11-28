@@ -7,7 +7,7 @@ export default class DB {
 
     async query(sql: string, args: any[] = []): Promise<QueryResult> {
         const client = await pool.connect();
-        
+
 // finally will happen no matter what; we still release the connection with client.release()
         try {
             return client.query(sql, args);
@@ -17,11 +17,11 @@ export default class DB {
     }
     
     // get/view all employees
-    getAllEmployees() {
-        return this.query(
-            "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
-        );
-    }
+    // getAllEmployees() {
+    //     return this.query(
+    //         "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
+    //     );
+    // }
     
     // create/add employee
     addEmployee(first_name: string, last_name: string, role_id: number) {
@@ -63,11 +63,12 @@ export default class DB {
         );
     }
     // get/view all departments
-    getAllDepartments() {
-        return this.query(
-            "SELECT * FROM department"
-        );
-    }
+    // !
+    // getAllDepartments() {
+    //     return this.query(
+    //         "SELECT * FROM department"
+    //     );
+    // }
 
     // BONUS: delete employee (you're fired!)
     deleteEmployee(employee_id: number) {

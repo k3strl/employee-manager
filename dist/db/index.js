@@ -12,9 +12,11 @@ export default class DB {
         }
     }
     // get/view all employees
-    getAllEmployees() {
-        return this.query("SELECT id, first_name, last_name, role_id, manager_id FROM employee");
-    }
+    // getAllEmployees() {
+    //     return this.query(
+    //         "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
+    //     );
+    // }
     // create/add employee
     addEmployee(first_name, last_name, role_id) {
         return this.query("INSERT INTO employee(first_name, last_name, role_id) VALUES ($1, $2, $3)", [first_name, last_name, role_id]);
@@ -27,7 +29,7 @@ export default class DB {
     addRole(title, salary, department_id) {
         return this.query("INSERT INTO role(title, salary, department_id) VALUES ($1, $2, $3)", [title, salary, department_id]);
     }
-    // update/change employee role (promotion!)
+    // update/change employee role (promotion/demotion!)
     updateEmployeeRole(employee_id, role_id) {
         return this.query("UPDATE employee SET role_id = $1 WHERE id = $2", [role_id, employee_id]);
     }
@@ -36,9 +38,12 @@ export default class DB {
         return this.query("INSERT INTO department(dept_name) VALUES ($1)", [dept_name]);
     }
     // get/view all departments
-    getAllDepartments() {
-        return this.query("SELECT * FROM department");
-    }
+    // !
+    // getAllDepartments() {
+    //     return this.query(
+    //         "SELECT * FROM department"
+    //     );
+    // }
     // BONUS: delete employee (you're fired!)
     deleteEmployee(employee_id) {
         return this.query("DELETE FROM employee WHERE id = $1", [employee_id]);

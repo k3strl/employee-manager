@@ -1,14 +1,17 @@
 import inquirer from "inquirer";
 import express from "express";
 import { connectToDb } from "./db/connection.js";
-import { viewAllDepartments, viewAllRoles, viewEmployees, addDepartment, addRole, addEmployee, changeRole, } from "./actions.js";
+import { viewAllDepartments, viewAllRoles, getAllEmployees, addDepartment, addRole, addEmployee, changeRole, } from "./actions.js";
 import Db from "./db/index.js";
 await connectToDb();
 const db = new Db();
-db.getAllEmployees()
-    .then(({ rows }) => {
-    console.table(rows);
-});
+console.log(db);
+// db.getAllEmployees()
+//     .then(({ rows }) => {
+//       console.log('\n \n');  
+//       console.table(rows);
+//       console.log('\n \n');
+//     });
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -38,7 +41,7 @@ const startCli = () => {
             viewAllRoles(startCli);
         }
         else if (answers.action === "View all employees") {
-            viewEmployees(startCli);
+            getAllEmployees(startCli);
         }
         else if (answers.action === "Add a department") {
             addDepartment(startCli);
