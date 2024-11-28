@@ -7,6 +7,7 @@ export const viewAllDepartments = (startCli: () => void): void => {
   pool.query(
     `SELECT id, department_name AS name FROM department`,
     (err: Error, result: QueryResult) => {
+      console.log(err);
       if (err) {
         console.log("error viewing departments");
         startCli();
@@ -143,7 +144,9 @@ export const getDepartments = async (): Promise<string[]> => {
 };
 
 export const addRole = (startCli: () => void): void => {
+  // console.log(getDepartments());
   getDepartments().then((departments) => {
+    console.log(departments);
     inquirer
       .prompt([
         {
@@ -180,7 +183,7 @@ export const addRole = (startCli: () => void): void => {
               throw err;
             } else {
               const departmentId = result.rows[0].id;
-
+              console.log(departmentId);
               pool.query(
                 `INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`,
                 [answer.role, answer.salary, departmentId],
@@ -191,6 +194,7 @@ export const addRole = (startCli: () => void): void => {
                   } else {
                     console.log(`${answer.role} was added successfully`);
                   }
+                  console.table(result.rows);
                   startCli();
                 }
               );
@@ -212,23 +216,23 @@ const getRoles = async (): Promise<string[]> => {
   }
 };
 
-const getAllEmployees = async (): Promise<string[]> => {
-  try {
-    const result: QueryResult = await pool.query(
-      `SELECT first_name, last_name FROM employee`
-    );
-    const managers = result.rows.map(
-      (row) => `${row.first_name} ${row.last_name}`
-    );
-    return managers;
-  } catch (err) {
-    console.log("error fetching employees");
-    throw err;
-  }
-};
+// const getAllEmployees = async (): Promise<string[]> => {
+//   try {
+//     const result: QueryResult = await pool.query(
+//       `SELECT first_name, last_name FROM employee`
+//     );
+//     const managers = result.rows.map(
+//       (row) => `${row.first_name} ${row.last_name}`
+//     );
+//     return managers;
+//   } catch (err) {
+//     console.log("error fetching employees");
+//     throw err;
+//   }
+// };
 
 export const addEmployee = (startCli: () => void): void => {
-  Promise.all([getAllRoles(), getAllEmployees()]).then(([roles, managers]) => {
+  Promise.all([getRoles(), getEmployeesInfo()]).then(([roles, managers]) => {
     inquirer
       .prompt([
         {
