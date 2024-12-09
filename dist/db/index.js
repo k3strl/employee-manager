@@ -11,12 +11,6 @@ export default class DB {
             client.release();
         }
     }
-    // get/view all employees
-    // getAllEmployees() {
-    //     return this.query(
-    //         "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
-    //     );
-    // }
     // create/add employee
     addEmployee(first_name, last_name, role_id) {
         return this.query("INSERT INTO employee(first_name, last_name, role_id) VALUES ($1, $2, $3)", [first_name, last_name, role_id]);

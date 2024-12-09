@@ -16,13 +16,6 @@ export default class DB {
         }
     }
     
-    // get/view all employees
-    // getAllEmployees() {
-    //     return this.query(
-    //         "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
-    //     );
-    // }
-    
     // create/add employee
     addEmployee(first_name: string, last_name: string, role_id: number) {
         return this.query(

@@ -1,6 +1,7 @@
 import { pool } from "./db/connection.js";
 import Table from "cli-table3";
 import inquirer from "inquirer";
+// import { v4 as uuidv4 } from 'uuid';
 export const viewAllDepartments = (startCli) => {
     pool.query(`SELECT id, department_name AS name FROM department`, (err, result) => {
         console.log(err);
@@ -95,7 +96,7 @@ export const addDepartment = (startCli) => {
         {
             type: "input",
             name: "response",
-            message: "What is the name of the department",
+            message: "What is the name of the department?",
         },
     ])
         .then((answer) => {
@@ -107,7 +108,7 @@ export const addDepartment = (startCli) => {
             else {
                 const department = result.rows[0];
                 console.log(`${department.department_name} was added successfully!`);
-                startCli();
+                startCli(); // Moved inside the else block
             }
         });
     });
@@ -123,59 +124,33 @@ export const getDepartments = async () => {
         throw err;
     }
 };
-export const addRole = (startCli) => {
-    // console.log(getDepartments());
-    getDepartments().then((departments) => {
-        console.log(departments);
-        inquirer
-            .prompt([
-            {
-                type: "input",
-                name: "role",
-                message: "What is the name of the role?",
-            },
-            {
-                type: "input",
-                name: "salary",
-                message: "What is the salary of the role?",
-                validate: (input) => {
-                    const number = parseFloat(input);
-                    if (isNaN(number) || number <= 0) {
-                        return "Please enter a valid number greater than 0.";
-                    }
-                    return true;
-                },
-            },
-            {
-                type: "list",
-                name: "department",
-                message: "Which department does the role belong to?",
-                choices: departments,
-            },
-        ])
-            .then((answer) => {
-            pool.query(`SELECT id FROM department WHERE department_name = $1`, [answer.department], (err, result) => {
-                if (err) {
-                    console.log("error adding role");
-                    throw err;
-                }
-                else {
-                    const departmentId = result.rows[0].id;
-                    console.log(departmentId);
-                    pool.query(`INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`, [answer.role, answer.salary, departmentId], (err) => {
-                        if (err) {
-                            console.log("error adding role");
-                            throw err;
-                        }
-                        else {
-                            console.log(`${answer.role} was added successfully`);
-                        }
-                        startCli();
-                    });
-                }
-            });
-        });
-    });
+export const addRole = async (callback) => {
+    const answers = await inquirer.prompt([
+        {
+            type: "input",
+            name: "title",
+            message: "Enter the role title:",
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "Enter the role salary:",
+        },
+        {
+            type: "input",
+            name: "department_id",
+            message: "Enter the department ID (integer):",
+            validate: (input) => !isNaN(parseInt(input)) || "Please enter a valid number",
+        },
+    ]);
+    try {
+        await pool.query("INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)", [answers.title, answers.salary, parseInt(answers.department_id)]);
+        console.log("Role added successfully!");
+        callback();
+    }
+    catch (err) {
+        console.error("Error adding role:", err);
+    }
 };
 const getRoles = async () => {
     try {
