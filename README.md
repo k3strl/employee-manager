@@ -23,7 +23,7 @@
   Use the arrow keys and keyboard to navigate the menus and answer the questions as prompted.
 
   ## Credits
-  I got lots of tutoring help from the BCS tutors, asked github copilot a lot of questions, , As always, Charlie and the TAs are awesome and are always happy to help out.
+  I got lots of tutoring help from the BCS tutors, asked github copilot a lot of questions, and utilized the BCS AI Learning Assistant. As always, instructor and TAs are fantastic and are always happy to help out.
 
   ## License
   This project is licensed under the ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) [MIT](https://opensource.org/licenses/MIT) license.
