@@ -23,7 +23,7 @@
   Use the arrow keys and keyboard to navigate the menus and answer the questions as prompted.
 
   ## Credits
-  I lost track of how many tutors helped me on this one ;) As always, Charlie and the TAs are awesome and are always happy to help out.
+  I got lots of tutoring help from the BCS tutors, asked github copilot a lot of questions, , As always, Charlie and the TAs are awesome and are always happy to help out.
 
   ## License
   This project is licensed under the ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) [MIT](https://opensource.org/licenses/MIT) license.
